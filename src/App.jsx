@@ -93,16 +93,16 @@ function App() {
         {/* Top Branding Section */}
         <header className="flex justify-between items-center mb-8 w-full">
           <div>
-            <h1 className="text-xl md:text-2xl font-black tracking-tight text-white bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text">
+            <h1 className="text-xl md:text-2xl font-black tracking-wider text-white">
               WEATHER ANALYTICS
             </h1>
-            <p className="text-[11px] font-medium text-slate-400 tracking-wider uppercase mt-0.5">
+            <p className="text-[10px] font-bold text-slate-500 tracking-widest uppercase mt-0.5">
               Live climate observation desk
             </p>
           </div>
           <button
             onClick={() => setIsCelsius(!isCelsius)}
-            className="px-3.5 py-1.5 border border-blue-500/30 text-blue-400 rounded-xl hover:bg-blue-500/10 active:bg-blue-500/20 transition-all font-semibold text-xs tracking-wide uppercase cursor-pointer shadow-sm shadow-blue-500/5"
+            className="px-3.5 py-1.5 border border-slate-800 bg-slate-900/80 text-slate-300 rounded-xl hover:text-blue-400 hover:border-blue-500/40 transition-all font-semibold text-xs tracking-wide uppercase cursor-pointer"
           >
             Scale: °{isCelsius ? "F" : "C"}
           </button>
@@ -114,7 +114,7 @@ function App() {
         {/* Feedback Alert Node */}
         <ErrorBanner message={error} onClose={() => setError(null)} />
 
-        {/* Primary Analytical Workspace Grid Layout */}
+        {/* Primary Workspace Grid Layout */}
         <main className="grid grid-cols-1 md:grid-cols-5 gap-6 w-full">
           {loading ? (
             <>
@@ -130,10 +130,10 @@ function App() {
             forecastData &&
             !error && (
               <>
-                <div className="md:col-span-2 transform transition-all duration-300">
+                <div className="md:col-span-2">
                   <WeatherCard data={weatherData} isCelsius={isCelsius} />
                 </div>
-                <div className="md:col-span-3 transform transition-all duration-300">
+                <div className="md:col-span-3">
                   <ForecastChart data={forecastData} isCelsius={isCelsius} />
                 </div>
               </>

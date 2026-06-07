@@ -16,7 +16,7 @@ function SearchBar({ onSearch, onGetLocation }) {
       <form onSubmit={handleSubmit} className="flex flex-1 gap-2">
         <div className="relative flex-1">
           <Search
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+            className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500"
             size={18}
           />
           <input
@@ -24,19 +24,19 @@ function SearchBar({ onSearch, onGetLocation }) {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Search for a city..."
-            className="w-full bg-slate-800/80 border border-slate-700/50 text-slate-50 pl-10 pr-4 py-2.5 rounded-xl text-sm placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+            className="w-full bg-slate-900/60 border border-slate-800 text-slate-100 pl-11 pr-4 py-2.5 rounded-xl text-sm placeholder-slate-500 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/30 transition-all shadow-inner"
           />
         </div>
         <button
           type="submit"
-          className="bg-blue-600 hover:bg-blue-500 active:bg-blue-700 text-white font-medium text-sm px-5 py-2.5 rounded-xl transition-colors cursor-pointer shadow-md shadow-blue-900/20"
+          className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 active:scale-[0.98] text-white font-semibold text-sm px-6 py-2.5 rounded-xl transition-all cursor-pointer shadow-lg shadow-indigo-950/40"
         >
           Search
         </button>
       </form>
       <button
         onClick={onGetLocation}
-        className="bg-slate-800/80 hover:bg-slate-700/80 active:bg-slate-800 border border-slate-700/50 text-slate-200 p-2.5 rounded-xl transition-colors cursor-pointer flex items-center justify-center group"
+        className="bg-slate-900/60 hover:bg-slate-800/80 active:scale-95 border border-slate-800 text-slate-300 p-2.5 rounded-xl transition-all cursor-pointer flex items-center justify-center group"
         title="Use Current Location"
       >
         <MapPin
