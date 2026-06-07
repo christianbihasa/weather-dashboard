@@ -31,7 +31,7 @@ jobs:
       - name: Build Application
         run: npm run build
         env:
-          VITE_OPENWEATHER_API_KEY: ${{ secrets.YOUR_GITHUB_SECRET_NAME }}
+          VITE_OPENWEATHER_API_KEY: ${{ secrets.VITE_OPENWEATHER_API_KEY }}
 
       - name: Upload Build Artifacts
         uses: actions/upload-pages-artifact@v3
