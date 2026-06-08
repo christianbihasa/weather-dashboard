@@ -25,7 +25,7 @@ app.use(limiter);
 const allowedOrigins = [
   "http://localhost:5173", // Vite default port
   "http://localhost:5174", // Vite fallback port
-  "https://christianbihasa.github.io", 
+  "https://christianbihasa.github.io",
 ];
 
 app.use(
@@ -50,7 +50,7 @@ app.get("/api/:endpoint", async (req, res) => {
   }
 
   const apiParams = {
-    appid: process.env.WEATHER_API_KEY, 
+    appid: process.env.WEATHER_API_KEY,
     units: units || "metric",
   };
 
@@ -82,7 +82,7 @@ app.get("/api/:endpoint", async (req, res) => {
   }
 });
 
-// 4. Critical Event Loop Listener
+// 4. Critical Event Loop Listener to monitor server health
 app.listen(PORT, () => {
   console.log(`[SYSTEM RUNNING]: Secure proxy server deployed on port ${PORT}`);
 });

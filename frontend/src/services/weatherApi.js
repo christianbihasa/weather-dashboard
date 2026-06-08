@@ -1,7 +1,7 @@
 const BASE_URL =
   import.meta.env.MODE === "development"
     ? "http://localhost:5000/api"
-    : "https://your-future-backend.onrender.com/api";
+    : "https://weather-dashboard-n30y.onrender.com";
 
 export const fetchWeatherByCity = async (city, isCelsius) => {
   const units = isCelsius ? "metric" : "imperial";
