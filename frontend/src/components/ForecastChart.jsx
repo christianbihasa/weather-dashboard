@@ -11,33 +11,46 @@ import {
 function ForecastChart({ data, isCelsius }) {
   if (!data || !data.list) return null;
 
-  const processedData = data.list
-    .filter((item) => item.dt_txt.includes("12:00:00"))
-    .map((item) => {
-      const date = new Date(item.dt * 1000);
-      return {
-        day: date.toLocaleDateString("en-US", { weekday: "short" }),
-        temp: Math.round(item.main.temp),
-        humidity: item.main.humidity,
-        condition: item.weather[0].main,
-      };
-    });
+  // Downsample: Extract every 4th item (3 hours x 4 = 12-hour steps) to prevent crowding
+  const filteredList = data.list.filter((_, index) => index % 4 === 0);
+
+  const processedData = filteredList.map((item) => {
+    const date = new Date(item.dt * 1000);
+    return {
+      // Formats data points to display day and localized hour (e.g., "Mon 12 PM")
+      displayTime:
+        date.toLocaleDateString("en-US", { weekday: "short" }) +
+        " " +
+        date.toLocaleTimeString("en-US", { hour: "numeric", hour12: true }),
+      day: date.toLocaleDateString("en-US", { weekday: "short" }),
+      temp: Math.round(item.main.temp),
+      humidity: item.main.humidity,
+      condition: item.weather[0].main,
+    };
+  });
 
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-slate-950 border border-slate-800 p-3 rounded-xl shadow-2xl">
-          <p className="text-xs font-bold text-white mb-1.5 border-b border-slate-800 pb-1">
-            {payload[0].payload.day}
+        <div className="bg-slate-950/95 border border-slate-800 p-3.5 rounded-xl shadow-2xl backdrop-blur-md min-w-[130px]">
+          <p className="text-[11px] font-bold text-slate-400 mb-1.5 border-b border-slate-800/80 pb-1">
+            {payload[0].payload.displayTime}
           </p>
-          <p className="text-xs font-semibold text-blue-400">
-            Temp: {payload[0].value}°{isCelsius ? "C" : "F"}
+          <p className="text-xs font-black text-white flex justify-between items-center gap-4">
+            <span className="text-slate-500 font-medium">Temp:</span>
+            <span>
+              {payload[0].value}°{isCelsius ? "C" : "F"}
+            </span>
           </p>
-          <p className="text-[11px] text-slate-400 mt-0.5">
-            Humidity: {payload[0].payload.humidity}%
+          <p className="text-xs font-black text-blue-400 flex justify-between items-center gap-4 mt-1">
+            <span className="text-slate-500 font-medium">Humidity:</span>
+            <span>{payload[0].payload.humidity}%</span>
           </p>
-          <p className="text-[11px] text-slate-500 capitalize mt-0.5">
-            Cond: {payload[0].payload.condition}
+          <p className="text-xs font-bold text-amber-400 flex justify-between items-center gap-4 mt-1">
+            <span className="text-slate-500 font-medium">Cond:</span>
+            <span className="bg-amber-500/10 px-1.5 py-0.5 rounded border border-amber-500/20 text-[10px] capitalize">
+              {payload[0].payload.condition}
+            </span>
           </p>
         </div>
       );
@@ -47,8 +60,9 @@ function ForecastChart({ data, isCelsius }) {
 
   return (
     <div className="bg-slate-900 border border-slate-800/80 rounded-2xl p-6 h-[340px] flex flex-col justify-between shadow-xl">
+      {/* Updated header title to accurately match the data structure */}
       <h3 className="text-[10px] font-bold tracking-wider text-slate-400 uppercase mb-3">
-        5-Day Forecast Trends
+        5-Day Weather Forecast (12-hour intervals)
       </h3>
       <div className="bg-slate-950/40 border border-slate-800/50 p-2.5 rounded-xl flex-1 flex items-center justify-center">
         <ResponsiveContainer width="100%" height="100%">
@@ -74,6 +88,7 @@ function ForecastChart({ data, isCelsius }) {
               tickLine={false}
               tick={{ fontSize: 11, fontWeight: 600 }}
               dy={8}
+              interval={1}
             />
             <YAxis
               stroke="#475569"
@@ -81,14 +96,22 @@ function ForecastChart({ data, isCelsius }) {
               tick={{ fontSize: 11 }}
               domain={["dataMin - 2", "dataMax + 2"]}
             />
-            <Tooltip content={<CustomTooltip />} />
+            {/* Added a clean dashed vertical cursor line for easier scanning */}
+            <Tooltip
+              content={<CustomTooltip />}
+              cursor={{
+                stroke: "#334155",
+                strokeWidth: 1,
+                strokeDasharray: "4 4",
+              }}
+            />
             <Area
               type="monotone"
               dataKey="temp"
               stroke="#3b82f6"
               strokeWidth={2.5}
-              dot={{ r: 4, strokeWidth: 1, fill: "#0f172a" }}
-              activeDot={{ r: 5, strokeWidth: 0 }}
+              dot={false}
+              activeDot={{ r: 5, strokeWidth: 0, fill: "#3b82f6" }}
               fill="url(#colorTemp)"
             />
           </AreaChart>
