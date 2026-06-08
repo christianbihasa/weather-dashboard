@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 21de8b07e72de5b8be878861ec6e2b2aec70defe
 # Weather Analytics Dashboard
 
 A high-fidelity, responsive climate observation workspace built with **React**, **Tailwind CSS**, and **Recharts**. The system leverages a secure **Node.js/Express** backend proxy server to interact with the **OpenWeather API** and features a production-resilient hybrid architecture designed to gracefully handle rate limits and network drops.
