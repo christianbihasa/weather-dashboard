@@ -23,7 +23,7 @@ A high-fidelity, responsive climate observation workspace built with **React**, 
 | **Frontend** | React (Hooks, Context, Functional Components), Vite, Tailwind CSS |
 | **Data Viz** | Recharts (Area, Tooltip, ResponsiveContainer), WebGL (Globe Canvas) |
 | **Backend Proxy** | Node.js, Express, Cors, Dotenv |
-| **API Source** | OpenWeatherMap API (Current Weather & 5-Day/3-Hour Forecast) |
+| **API Source** | OpenWeatherMap API (Current Weather & 5-Day/12-Hour Forecast) |
 | **Deployment** | GitHub Actions / Pages (Frontend), Render (Secure Backend) |
 
 ---
@@ -59,7 +59,7 @@ weather-app-suite/
 ### 1. Clone the Workspace
 
 ```bash
-git clone [https://github.com/christianbihasa/weather-dashboard.git](https://github.com/christianbihasa/weather-dashboard.git)
+git clone https://github.com/christianbihasa/weather-dashboard.git
 cd weather-app-suite
 
 ```
